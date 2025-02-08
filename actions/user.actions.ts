@@ -1,6 +1,6 @@
 const createUser = async (user:any) => {
     try {
-      const response = await fetch("/api/users", {
+      const response = await fetch("https://saksham-vercel.vercel.app/api/users/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
