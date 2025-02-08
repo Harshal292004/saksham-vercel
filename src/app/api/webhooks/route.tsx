@@ -1,11 +1,8 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
-import {  WebhookEvent } from '@clerk/nextjs/server'
+import { WebhookEvent } from '@clerk/nextjs/server'
 import { createUser } from '../../../../actions/user.actions'
-
 export async function POST(req: Request) {
-  console.log("it actually got triggered");
-  
   const SIGNING_SECRET = process.env.SIGNING_SECRET
 
   if (!SIGNING_SECRET) {
@@ -28,7 +25,7 @@ export async function POST(req: Request) {
     })
   }
 
-  // Get bodys
+  // Get body
   const payload = await req.json()
   const body = JSON.stringify(payload)
 
@@ -52,22 +49,28 @@ export async function POST(req: Request) {
   // For this guide, log payload to console
   const { id } = evt.data
   const eventType = evt.type
-
   if(eventType==="user.created"){
     console.log('it got triggre at the event type');
     
-    const {id,email_addresses}=evt.data
-    const user={
-        clerkId:id,
-        email:email_addresses[0].email_address,
-    }
-    const newUser= await createUser(user);
-    console.log(`we acutlaly got a newUser:${newUser}`);
+    const {
+      id,
+      email_addresses,
+      username,
+      first_name,
+      }=evt.data
+    const data=await createUser({
+      clerkId:id,
+      email_addresses:email_addresses,
+      username:username,
+      first_name:first_name
+    })
+
+    console.log(`Dataaaa: ${data}`);
     
+
   }
   console.log(`Received webhook with ID ${id} and event type of ${eventType}`)
   console.log('Webhook payload:', body)
 
   return new Response('Webhook received', { status: 200 })
 }
-

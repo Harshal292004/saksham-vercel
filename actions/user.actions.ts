@@ -1,12 +1,26 @@
-import { User } from "@/lib/models/user.models";
-import { connectToDB } from "@/lib/db";
+const createUser = async (user:any) => {
+    try {
+      const response = await fetch("/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          clerkId: user.clerkId,
+          email: user.email,
+          userName: user.userName,
+          firstName: user.firstName,
+          role:"individual"
+        }),
+      });
 
-export async function createUser(user:any) {
-    try{
-        await connectToDB()
-        const newUser= await User.create(user)
-        return JSON.parse(JSON.stringify(newUser))
-    }catch(error){
-        console.log(error);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Failed to create user");
+      return data  
+    } catch (error) {
+      console.error("Error:", error);
+      return null
     }
-}
+  };
+
+export {createUser}

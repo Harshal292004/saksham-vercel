@@ -1,44 +1,38 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-const MONGODB_URI=process.env.MONGODB_URI!
+const MONGODB_URI ="mongodb+srv://malaniharshal95:1h2a3r4s@hactivate.dnymy.mongodb.net/?retryWrites=true&w=majority&appName=Hactivate"
 
 
-if(!MONGODB_URI){
-    throw new Error("FUCK WE MESSED IT UP AGAIN")
+if (!MONGODB_URI) {
+  throw new Error("Please define the MONGODB_URI environment variable");
 }
 
-let cached= global.mongoose;
-
-if(!cached){
-    cached= global.mongoose={conn: null,promise:null};
+declare global {
+  var mongoose: any;
 }
 
-export async  function connectToDB() {
-    
-    if(cached.conn){
-        return cached.conn
-    }
-    //maxPoolSize determines the no. of concurrent connections with the db 
-    //bufferCommands queues ops like queries , inserts untill the db conn is established 
-    //if flase mongoose won't queue the ops and throw error 
-    if(!cached.promise){
-        const opts={
-            bufferCommands : true,
-            maxPoolSize:10
-        }
-        cached.promise= mongoose.connect(MONGODB_URI,opts).then(()=>
-            mongoose.connection
-        )
-    }
+let cached = global.mongoose;
 
-    try{
-        cached.conn= await cached.promise
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
 
-    } catch(error){
-        cached.promise=null
-        throw error
-    }
+export const connectToDB = async () => {
+  if (cached.conn) return cached.conn;
 
-    return cached.conn
-} 
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(MONGODB_URI, {
+      dbName: "saksham",
+      bufferCommands: false,
+    });
+  }
 
+  try {
+    cached.conn = await cached.promise;
+  } catch (e) {
+    cached.promise = null;
+    throw e;
+  }
+
+  return cached.conn;
+};

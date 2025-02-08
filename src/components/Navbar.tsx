@@ -3,7 +3,7 @@ import '@/lib/styles/navbar.css'
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { archivo_black } from '@/lib/fonts';
+import { archivo_black } from "@/lib/fonts";
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { NAV_ITEMS,  NAVBAR_CONTAINER_VARIANTS, NAVBAR_MOBILE_VARIANTS } from '@/lib/constants';
 import { motion, AnimatePresence } from 'framer-motion';
