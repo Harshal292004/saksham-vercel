@@ -1,25 +1,17 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
-
-export enum UserRole {
-  INDIVIDUAL = "individual",
-  ORGANIZATION = "organization",
-}
+import { unique } from "next/dist/build/utils";
 
 export interface IUser extends Document {
-  clerkId: string;
-  email_addresses: string;
+  email_address: string;
   username: string;
   first_name: string;
-  role: UserRole;
 }
 
 const UserSchema: Schema = new Schema(
   {
-    clerkId: { type: String, required: true, unique: true },
-    email_addresses: { type: String, required: true, unique: true },
-    username: { type: String, required: true, unique: true },
+    username: { type: String, required: true,unique:true},
+    email_address: { type: String},
     first_name: { type: String, required: true },
-    role: { type: String, enum: Object.values(UserRole), required: true },
   },
   { timestamps: true }
 );

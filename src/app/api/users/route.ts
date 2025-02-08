@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     
     // Validate required fields
-    if (!body.clerkId || !body.email) {
+    if (!body.email_address || !body.username) {
       return NextResponse.json(
         { success: false, error: "Missing required fields" },
         { status: 400 }
@@ -18,12 +18,11 @@ export async function POST(request: Request) {
     
 
     const newUser = await User.create({
-      clerkId: body.clerkId,
-      email_addresses: body.email_addresses,
-      username:body.usernamem,
+      username:body.username,
+      email_address: body.email_address,
       first_name: body.first_name,
-      role:"individual"
     });
+    
 
     return NextResponse.json({ success: true, user: newUser }, { status: 201 });
   } catch (error: any) {
@@ -32,8 +31,6 @@ export async function POST(request: Request) {
       { 
         success: false, 
         error: error.message || "Internal Server Error",
-        // Include more details in development
-        ...(process.env.NODE_ENV === 'development' && { stack: error.stack })
       },
       { status: 500 }
     );

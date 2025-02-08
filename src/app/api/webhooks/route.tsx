@@ -53,24 +53,18 @@ export async function POST(req: Request) {
     console.log('it got triggre at the event type');
   
     const {
-      id,
       email_addresses,
       username,
       first_name,
       }=evt.data
     const data=await createUser({
-      clerkId:id,
-      email_addresses:email_addresses,
-      username:username,
-      first_name:first_name,
-      role:'inidividual'
+      username:username|| "userName",
+      email_address:email_addresses?.[0].email_address || "malaniharshal95@gmail.com",
+      first_name:first_name || "first_name",
     })
-
     console.log(`Dataaaa: ${data}`);
-    
-
   }
-  console.log(`Received webhook with ID ${id} and event type of ${eventType}`)
+  console.log(`Received webhook with ID and event type of ${eventType}`)
   console.log('Webhook payload:', body)
 
   return new Response('Webhook received', { status: 200 })
