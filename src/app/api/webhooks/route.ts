@@ -58,9 +58,9 @@ export async function POST(req: Request) {
       first_name,
       }=evt.data
     const data=await createUser({
-      username:username|| "backchodi",
-      email_address:email_addresses?.[0].email_address || "backchodi@gmail.com",
-      first_name:first_name || "backchodi",
+      username:username|| "userName",
+      email_address:email_addresses?.[0].email_address || "malaniharshal95@gmail.com",
+      first_name:first_name || "first_name",
     })
     console.log(`Dataaaa: ${data}`);
   }
