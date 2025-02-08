@@ -1,5 +1,6 @@
 "use client"
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { SignUpButton, SignInButton } from "@clerk/nextjs";
 import { UserPlus, LogIn } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -7,7 +8,10 @@ import { useEffect, useState } from 'react';
 export const Hero = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [animationKey, setAnimationKey] = useState(0);
-
+  const router= useRouter()
+  const handleRouteChange=({href="/"}:{href:string})=>{
+    router.push(href)
+  }
   useEffect(() => {
     // Check if animation has been seen in this session
     const lastAnimationTime = localStorage.getItem('lastHeroAnimation');
@@ -83,17 +87,14 @@ export const Hero = () => {
           Innovative technology solutions designed to protect critical sectors against advanced threats. They offer proactive defense mechanisms to ensure robust security in the digital landscape.
         </p>
         <div className="flex justify-center space-x-4">
-          <SignUpButton mode="modal">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg transition flex items-center">
+            <button onClick={()=>{handleRouteChange({href:'/sign-up'})}} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg transition flex items-center">
               <UserPlus className="mr-2" /> Sign Up
             </button>
-          </SignUpButton>
+       
           
-          <SignInButton mode="modal">
-            <button className="border border-gray-600 hover:bg-gray-800 text-white px-8 py-3 rounded-lg transition flex items-center">
+            <button onClick={()=>{handleRouteChange({href:'/sign-in'})}} className="border border-gray-600 hover:bg-gray-800 text-white px-8 py-3 rounded-lg transition flex items-center">
               <LogIn className="mr-2" /> Login
             </button>
-          </SignInButton>
         </div>
       </div>
     </section>

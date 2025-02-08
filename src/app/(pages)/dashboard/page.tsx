@@ -2,7 +2,7 @@ import React from 'react'
 import { SignOutButton } from '@clerk/nextjs'
 const page = () => {
   return (
-    <div>
+    <div className='mt-24'>
         <SignOutButton ></SignOutButton>
     </div>
 
