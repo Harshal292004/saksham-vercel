@@ -7,9 +7,9 @@ const createUser = async (user:any) => {
         },
         body: JSON.stringify({
           clerkId: user.clerkId,
-          email: user.email,
-          userName: user.userName,
-          firstName: user.firstName,
+          email_addresses: user.email_addresses,
+          username: user.username,
+          first_name: user.first_name,
           role:"individual"
         }),
       });

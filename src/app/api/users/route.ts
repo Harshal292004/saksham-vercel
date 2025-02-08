@@ -15,15 +15,14 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+    
 
     const newUser = await User.create({
       clerkId: body.clerkId,
-      name: body.name,
-      email: body.email,
-      userName: body.userName,
-      firstName: body.firstName,
-      lastName: body.lastName,
-      role: body.role
+      email_addresses: body.email_addresses,
+      username:body.usernamem,
+      first_name: body.first_name,
+      role:"individual"
     });
 
     return NextResponse.json({ success: true, user: newUser }, { status: 201 });

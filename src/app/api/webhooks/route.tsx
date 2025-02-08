@@ -51,7 +51,7 @@ export async function POST(req: Request) {
   const eventType = evt.type
   if(eventType==="user.created"){
     console.log('it got triggre at the event type');
-    
+  
     const {
       id,
       email_addresses,
@@ -62,7 +62,8 @@ export async function POST(req: Request) {
       clerkId:id,
       email_addresses:email_addresses,
       username:username,
-      first_name:first_name
+      first_name:first_name,
+      role:'inidividual'
     })
 
     console.log(`Dataaaa: ${data}`);
